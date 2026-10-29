@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fire Alarm Monitoring System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="top-header">
+    <div class="header-text">
+      <h1>🔥 Fire Alarm Monitoring System</h1>
+      <p>Operating Systems Practical — Producer / Bounded Buffer / Consumer Demonstration</p>
+    </div>
+    <div class="system-badge online" id="systemBadge">SYSTEM ONLINE</div>
+  </header>
+
+  <!-- ============== MESSAGE BAR =============== -->
+  <div class="message-wrap">
+    <div class="message-bar info" id="messageBar"></div>
+  </div>
+
+  <main class="dashboard">
+
+    <!-- ========= A. DASHBOARD SUMMARY ========== -->
+    <section>
+      <h2 class="section-title">Dashboard Summary</h2>
+      <div class="summary-grid">
+        <div class="card stat-card total">
+          <span class="stat-value" id="totalCount">0</span>
+          <span class="stat-label">🚨 Total Alerts</span>
+        </div>
+        <div class="card stat-card smoke">
+          <span class="stat-value" id="smokeCount">0</span>          <span class="stat-label">💨 Smoke Alerts</span>
+        </div>
+        <div class="card stat-card heat">
+          <span class="stat-value" id="heatCount">0</span>
+          <span class="stat-label">🌡️ Heat Alerts</span>
+        </div>
+        <div class="card stat-card flame">
+          <span class="stat-value" id="flameCount">0</span>
+          <span class="stat-label">🔥 Flame Alerts</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========= B. SENSOR CONTROLS ============ -->
+    <section>
+      <h2 class="section-title">Sensor Controls <span class="hint">(Producers)</span></h2>
+      <div class="sensor-grid">
+
+        <!-- Smoke Sensor -->
+        <div class="card sensor-card">
+          <div class="sensor-icon">💨</div>
+          <h3>Smoke Sensor</h3>
+          <label for="smokeLocation">Room / Location</label>
+          <select id="smokeLocation">
+            <option>ROOM 101</option>
+            <option>ROOM 204</option>
+            <option>LAB 3</option>
+          </select>
+          <button class="btn btn-produce" data-sensor="smoke">⚠ Trigger Smoke Alert</button>
+        </div>
+
+        <!-- Heat Sensor -->
+        <div class="card sensor-card">
+          <div class="sensor-icon">🌡️</div>
+          <h3>Heat Sensor</h3>
+          <label for="heatLocation">Room / Location</label>
+          <select id="heatLocation">
+            <option>ROOM 101</option>
+            <option selected>ROOM 204</option>
+            <option>LAB 3</option>
+          </select>
+          <button class="btn btn-produce" data-sensor="heat">⚠ Trigger Heat Alert</button>
+        </div>
+
+        <!-- Flame Sensor -->
+        <div class="card sensor-card">
+          <div class="sensor-icon">🔥</div>
+          <h3>Flame Sensor</h3>
+          <label for="flameLocation">Room / Location</label>
+          <select id="flameLocation">
+            <option>ROOM 101</option>
+            <option>ROOM 204</option>
+            <option selected>LAB 3</option>
+          </select>
+          <button class="btn btn-produce" data-sensor="flame">⚠ Trigger Flame Alert</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==== E. PRODUCER-CONSUMER VISUALIZATION = -->
+    <section>
+      <h2 class="section-title">Producer – Consumer Visualization</h2>
+      <div class="flow-diagram">
+        <div class="flow-col">
+          <div class="flow-box producer">Smoke Sensor</div>
+          <div class="flow-box producer">Heat Sensor</div>
+          <div class="flow-box producer">Flame Sensor</div>
+        </div>
+        <div class="flow-arrow">──▶</div>
+        <div class="flow-box buffer-box">
+          ALERT BUFFER
+          <span id="flowBufferSize">0 / 5</span>
+        </div>
+        <div class="flow-arrow">──▶</div>
+        <div class="flow-box consumer-box">Emergency<br>Response System</div>
+      </div>
+      <p class="flow-note">
+        Bounded FIFO queue — maximum <strong>5</strong> pending alerts.
+        Producers are rejected when the buffer is full; consumers always take the oldest alert first.
+      </p>
+    </section>
+
+    <!-- ==== C + D: BUFFER AND EMERGENCY RESPONSE = -->
+    <div class="main-grid">
+
+      <!-- C. ALERT BUFFER (QUEUE) -->
+      <section class="card panel">
+        <h2>📦 Alert Buffer (Queue) <span class="hint">Shared Bounded Buffer</span></h2>
+        <div class="buffer-gauge" id="bufferGauge"></div>
+        <div class="buffer-caption">
+          Capacity: <strong>5</strong> &nbsp;|&nbsp; Current queue size:
+          <strong id="queueSize">0</strong> &nbsp;|&nbsp; Order: <strong>FIFO</strong>
+        </div>
+        <div class="alert-list" id="bufferList"></div>
+        <div class="empty-note" id="bufferEmpty">Buffer empty — no alerts waiting.</div>
+      </section>
+
+      <!-- D. EMERGENCY RESPONSE SYSTEM -->
+      <section class="card panel">
+        <h2>🚒 Emergency Response System <span class="hint">Consumers</span></h2>
+
+        <div class="workers">
+          <div class="worker" id="worker1">
+            <div class="worker-name">Worker 1</div>
+            <div class="worker-status" id="worker1Status">Idle</div>
+          </div>
+          <div class="worker" id="worker2">
+            <div class="worker-name">Worker 2</div>
+            <div class="worker-status" id="worker2Status">Idle</div>
+          </div>
+          <div class="lock-box free" id="lockBox">🔓 Buffer free — no consumer holds the lock</div>
+        </div>
+
+        <div class="button-row">
+          <button class="btn btn-consume" id="processNextBtn">▶ Process Next Alert</button>
+          <button class="btn btn-consume" id="processAllBtn">⏩ Process All Alerts</button>
+        </div>
+        <div class="button-row">
+          <button class="btn btn-info" id="sampleBtn">📥 Load Sample Alerts</button>
+          <button class="btn btn-danger" id="resetBtn">↻ Reset Demo</button>
+        </div>
+
+        <h3>Processing Log</h3>
+        <div class="log-list" id="processingLog"></div>
+        <div class="empty-note" id="logEmpty">No alerts processed yet.</div>
+      </section>
+
+    </div>
+
+    <!-- ========= HOW IT MAPS TO OS ============= -->
+    <section class="card note-card">
+      <h3>How this maps to the Producer–Consumer problem</h3>
+      <ul>
+        <li><strong>Producers:</strong> the three sensors generate alerts and push them into the buffer.</li>
+        <li><strong>Shared bounded buffer:</strong> a FIFO array with a maximum of 5 pending alerts.</li>
+        <li><strong>Consumers:</strong> two emergency-response workers pull alerts and handle them.</li>
+        <li><strong>Mutual exclusion:</strong> a lock makes sure only one consumer claims an alert at a time.</li>
+        <li><strong>Buffer overflow:</strong> new alerts are rejected with a message when all 5 slots are used.</li>
+        <li><strong>FIFO order:</strong> the oldest alert (ROOM 101 first in the sample) is always processed first.</li>
+      </ul>
+      <p class="sim-note">
+        ⚠ Note: browser JavaScript is <strong>single-threaded</strong>, so Worker 1 and Worker 2 are
+        <strong>simulated workers</strong>. This is a UI demonstration of the OS concept
+        (synchronisation shown with a simple lock variable), not real operating-system threads.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    Fire Alarm Monitoring System — Operating Systems Practical Journal
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

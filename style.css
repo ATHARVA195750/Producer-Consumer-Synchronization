@@ -1,0 +1,594 @@
+/* ============================================================
+   Fire Alarm Monitoring System — style.css
+   Simple dark navy theme with red / orange fire-alert accents.
+   No frameworks, only basic CSS.
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+  background: linear-gradient(180deg, #0a1229 0%, #0b1735 100%);
+  color: #e8eeff;
+  min-height: 100vh;
+}
+
+/* ---------------- Header ---------------- */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: #0d1a3a;
+  border-bottom: 3px solid #ff4d4f;
+}
+
+.top-header h1 {
+  font-size: 1.45rem;
+}
+
+.top-header p {
+  color: #93a4d4;
+  font-size: 0.82rem;
+  margin-top: 3px;
+}
+
+.system-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.system-badge.online {
+  background: rgba(46, 204, 113, 0.12);
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+.system-badge.active {
+  background: rgba(255, 140, 66, 0.15);
+  color: #ff8c42;
+  border: 1px solid #ff8c42;
+}
+
+.system-badge.full {
+  background: rgba(255, 77, 79, 0.15);
+  color: #ff4d4f;
+  border: 1px solid #ff4d4f;
+}
+
+/* ------------- Message bar ---------------- */
+.message-wrap {
+  max-width: 1180px;
+  margin: 12px auto 0;
+  padding: 0 16px;
+}
+
+.message-bar {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.message-bar:empty {
+  display: none;
+}
+
+.message-bar.success {
+  background: rgba(46, 204, 113, 0.12);
+  border: 1px solid #2ecc71;
+  color: #7dffa8;
+}
+
+.message-bar.error {
+  background: rgba(255, 77, 79, 0.12);
+  border: 1px solid #ff4d4f;
+  color: #ff9b9b;
+}
+
+.message-bar.info {
+  background: rgba(77, 163, 255, 0.12);
+  border: 1px solid #4da3ff;
+  color: #a8d1ff;
+}
+
+.message-bar.warn {
+  background: rgba(255, 176, 32, 0.12);
+  border: 1px solid #ffb020;
+  color: #ffd479;
+}
+
+/* ------------- Dashboard layout ----------- */
+.dashboard {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.section-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffb020;
+  margin-bottom: 10px;
+}
+
+.section-title .hint {
+  font-size: 0.75rem;
+  color: #93a4d4;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.card {
+  background: #111d3d;
+  border: 1px solid #24345f;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+/* ---------------- Summary cards ----------- */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 4px solid;
+}
+
+.stat-card .stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.stat-card .stat-label {
+  color: #93a4d4;
+  font-size: 0.83rem;
+}
+
+.stat-card.total { border-color: #4da3ff; }
+.stat-card.total .stat-value { color: #4da3ff; }
+.stat-card.smoke  { border-color: #b9c2d8; }
+.stat-card.smoke .stat-value  { color: #d6dcef; }
+.stat-card.heat   { border-color: #ff8c42; }
+.stat-card.heat .stat-value   { color: #ff8c42; }
+.stat-card.flame  { border-color: #ff4d4f; }
+.stat-card.flame .stat-value  { color: #ff4d4f; }
+
+/* ---------------- Sensor panels ----------- */
+.sensor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.sensor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.sensor-icon {
+  font-size: 2rem;
+}
+
+.sensor-card h3 {
+  font-size: 1rem;
+}
+
+.sensor-card label {
+  font-size: 0.74rem;
+  color: #93a4d4;
+  align-self: stretch;
+  text-align: left;
+}
+
+.sensor-card select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  background: #0d1836;
+  border: 1px solid #24345f;
+  color: #e8eeff;
+  font-size: 0.85rem;
+}
+
+/* ---------------- Buttons ----------------- */
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  color: #fff;
+}
+
+.btn:hover {
+  filter: brightness(1.12);
+}
+
+.btn-produce {
+  background: #ff8c42;
+  color: #241200;
+  width: 100%;
+}
+
+.btn-consume {
+  background: #ff4d4f;
+}
+
+.btn-info {
+  background: #2f6fed;
+}
+
+.btn-danger {
+  background: transparent;
+  border: 1px solid #ff4d4f;
+  color: #ff8c8c;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.button-row .btn {
+  flex: 1;
+}
+
+/* ------------ Flow diagram ---------------- */
+.flow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: #0d1836;
+  border: 1px dashed #24345f;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.flow-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.flow-box {
+  padding: 9px 14px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: #111d3d;
+  border: 1px solid #24345f;
+}
+
+.flow-box.producer {
+  border-color: #ff8c42;
+  color: #ffcf9e;
+}
+
+.flow-box.buffer-box {
+  border: 2px solid #ff4d4f;
+  background: rgba(255, 77, 79, 0.1);
+  min-width: 170px;
+}
+
+.flow-box.buffer-box span {
+  display: block;
+  font-size: 1.25rem;
+  color: #ff8c8c;
+  margin-top: 4px;
+}
+
+.flow-box.consumer-box {
+  border-color: #4da3ff;
+  background: rgba(77, 163, 255, 0.1);
+  color: #a8d1ff;
+  min-width: 150px;
+}
+
+.flow-arrow {
+  color: #ffb020;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.flow-note {
+  text-align: center;
+  color: #93a4d4;
+  font-size: 0.8rem;
+  margin-top: 8px;
+}
+
+/* ------------ Main two-column grid -------- */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.panel h2 {
+  font-size: 1rem;
+  color: #ffd479;
+  margin-bottom: 10px;
+}
+
+.panel h2 .hint {
+  font-size: 0.72rem;
+  color: #93a4d4;
+}
+
+/* ------------ Buffer panel ---------------- */
+.buffer-gauge {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0d1836;
+  border: 1px solid #24345f;
+}
+
+.dot.filled {
+  background: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.buffer-caption {
+  font-size: 0.8rem;
+  color: #93a4d4;
+  margin-bottom: 10px;
+}
+
+.buffer-caption strong {
+  color: #ffb020;
+}
+
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.alert-row {
+  display: grid;
+  grid-template-columns: 44px 84px 1fr 80px auto;
+  gap: 8px;
+  align-items: center;
+  background: #0d1836;
+  border-left: 3px solid #ffb020;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+}
+
+.alert-row.processing {
+  border-left-color: #ff4d4f;
+  background: rgba(255, 77, 79, 0.08);
+}
+
+.a-id {
+  font-weight: 700;
+  color: #ffd479;
+}
+
+.a-room {
+  font-weight: 600;
+}
+
+.a-type {
+  color: #c3cdec;
+}
+
+.a-time {
+  color: #93a4d4;
+}
+
+.a-status {
+  justify-self: end;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.a-status.pending {
+  background: rgba(255, 176, 32, 0.15);
+  color: #ffd479;
+  border: 1px solid #ffb020;
+}
+
+.a-status.processing {
+  background: rgba(255, 77, 79, 0.18);
+  color: #ff9b9b;
+  border: 1px solid #ff4d4f;
+}
+
+.empty-note {
+  display: none;
+  text-align: center;
+  color: #93a4d4;
+  border: 1px dashed #24345f;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 0.85rem;
+}
+
+/* ------------- Consumer panel ------------- */
+.workers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.worker {
+  background: #0d1836;
+  border: 1px solid #24345f;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.worker.busy {
+  border-color: #ff4d4f;
+  background: rgba(255, 77, 79, 0.1);
+}
+
+.worker-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.worker-status {
+  font-size: 0.74rem;
+  color: #2ecc71;
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+.worker.busy .worker-status {
+  color: #ff9b9b;
+}
+
+.lock-box {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.lock-box.free {
+  background: rgba(46, 204, 113, 0.1);
+  border: 1px solid #2ecc71;
+  color: #7dffa8;
+}
+
+.lock-box.locked {
+  background: rgba(255, 77, 79, 0.12);
+  border: 1px solid #ff4d4f;
+  color: #ff9b9b;
+}
+
+/* ------------- Processing log ------------- */
+.panel h3 {
+  font-size: 0.9rem;
+  color: #ffd479;
+  margin: 12px 0 8px;
+}
+
+.log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.log-item {
+  background: #0d1836;
+  border-left: 3px solid #2ecc71;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+}
+
+.log-item .log-meta {
+  color: #93a4d4;
+  font-size: 0.72rem;
+  margin-top: 3px;
+}
+
+/* ------------- Note card ------------------ */
+.note-card h3 {
+  color: #ffd479;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.note-card ul {
+  margin-left: 18px;
+  font-size: 0.84rem;
+  color: #c3cdec;
+  line-height: 1.6;
+}
+
+.sim-note {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #ffd479;
+  background: rgba(255, 176, 32, 0.08);
+  border: 1px dashed #ffb020;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+/* ------------- Footer --------------------- */
+.page-footer {
+  text-align: center;
+  color: #64749e;
+  font-size: 0.75rem;
+  padding: 14px;
+}
+
+/* ------------- Responsive ----------------- */
+@media (max-width: 950px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sensor-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alert-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .a-status {
+    justify-self: auto;
+  }
+
+  .top-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
